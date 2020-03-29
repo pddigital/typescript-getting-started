@@ -1,7 +1,23 @@
-function startGame() {
-    // starting a new game
-    const messagesElement = document.getElementById('messages');
-    messagesElement!.innerText = 'Welcome to MultiMath! Starting new game...';  
-  }
-  
-  document.getElementById('startGame')!.addEventListener('click', startGame);
+
+import Player from "./player";
+import Game from "./game";
+import Utility from "./utility";
+
+let newGame: Game;
+
+// add click handler to the start game button
+document.getElementById('startGame')!.addEventListener('click', () => {
+  const player: Player = new Player();
+  player.name = Utility.getInputValue('playername');
+
+  const problemCount: number = Number(Utility.getInputValue('problemCount'));
+  const factor: number = Number(Utility.getInputValue('factor'));
+
+  newGame = new Game(player, problemCount, factor);
+  newGame.displayGame();
+});
+
+// add click handler to the calculate score button
+document.getElementById('calculate')!.addEventListener('click', () => {
+  newGame.calculateScore();
+});
